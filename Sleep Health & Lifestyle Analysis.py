@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import warnings
 
 # DATA PREPARATION/WRANGLING
 df = pd.read_csv(r"C:\Users\princ\OneDrive\Desktop\Sleep Health Analysis.csv")
@@ -49,16 +50,18 @@ fig, axs = plt.subplots(nrows=1, ncols=3)
 axs.flatten()
 for i, var in enumerate(cat_plot):
     sns.countplot(x=var, hue='Sleep Disorder', data=df, ax=axs[i])
+    sns.histplot(x=var, hue='Sleep Disorder', data=df, ax=axs[i], multiple='fill', kde=False, element='bars')
     axs[i].set_xticklabels(axs[i].get_xticklabels(), rotation=90)
 fig.tight_layout()
 plt.show()
 
-#Histogram
+# Histogram
+warnings.filterwarnings('ignore')
 cat_plot = ['Gender', 'Occupation', 'BMI Category']
 fig, axs = plt.subplots(nrows=1, ncols=3)
 axs.flatten()
 for i, var in enumerate(cat_plot):
-    sns.countplot(x=var, hue='Sleep Disorder', data=df, ax=axs[i], element='bars', Fill=True)
+    sns.histplot(x=var, hue='Sleep Disorder', data=df, ax=axs[i], multiple='fill', kde=False, element='bars')
     axs[i].set_xticklabels(axs[i].get_xticklabels(), rotation=90)
 fig.tight_layout()
 plt.show()
